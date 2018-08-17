@@ -28,7 +28,7 @@ using namespace p1d;
 int main()
 {
 	//Create some data
-	vector< float > data;
+	vector<double> data;
 	data.push_back(2.0);   data.push_back(5.0);   data.push_back(7.0);
 	data.push_back(-12.0); data.push_back(-13.0); data.push_back(-7.0);
 	data.push_back(10.0);  data.push_back(18.0);  data.push_back(6.0);

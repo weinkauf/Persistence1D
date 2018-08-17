@@ -32,16 +32,16 @@ int main()
 {
 	//Declare class and input variables
 	Persistence1D p;
-	vector<float> data;
-	float currdata; 
+	vector<double> data;
+	double currdata; 
 	ifstream datafile;
 	char * filename = "data.txt";
 	
 	//Declare variables for results
 	vector<TPairedExtrema> pairs;	
-	vector<int> min, max;			
-	int globalMinIndex;
-	float globalMinValue;
+	vector<size_t> min, max;			
+	size_t globalMinIndex;
+	double globalMinValue;
 	
 
 	//Open the data file for reading
@@ -77,7 +77,7 @@ int main()
 		
 	//Now set a threshold for features filtering
 	//In this case, we choose a threshold between largest and smallest persistence, to select from of the data.
-	float filterThreshold = (pairs.front().Persistence + pairs.back().Persistence)/2;
+	double filterThreshold = (pairs.front().Persistence + pairs.back().Persistence)/2;
 	
 	//The vector which hold the data for the Get functions are being reset before use.
 	//Use them to retrieve the filtered results:

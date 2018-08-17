@@ -357,7 +357,7 @@ protected:
 		Only edges of destroyed components are updated to the new component color.
 		The Component values in this vector are invalid at the end of the algorithm.
 	*/
-	std::vector<size_t> Colors;		//need to init to empty
+	std::vector<int> Colors;		//need to init to empty
 
 
 	/*!

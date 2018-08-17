@@ -40,8 +40,8 @@ int main()
 {
 	//Input and class variables declaration
 	Persistence1D p;
-	vector<float> data;
-	float currdata; 
+	vector<double> data;
+	double currdata; 
 	ifstream datafile;
 	ofstream outfile;
 	char * filename = "data.txt";
@@ -49,8 +49,8 @@ int main()
 	bool enableMatlabIndexing = true;
 
 	//Output variables declaration
-	vector<int> min, max;			
-	int globalMinIndex;
+	vector<size_t> min, max;			
+	size_t globalMinIndex;
 	
 	//Open and read the data file
 	datafile.open(filename);
@@ -78,7 +78,7 @@ int main()
 	}
 	
 	//Now, set a threshold for features filtering
-	float filterThreshold = 1.0;
+	double filterThreshold = 1.0;
 	
 	//Retrieve the filtered results from the class. 
 	//Since results are intended to be used within Matlab, set MatlabIndexing in all Get function calls
@@ -92,7 +92,7 @@ int main()
 	if (!outfile)
 		return -2;
 	
-	for (unsigned int i = 0; i < min.size() && i < max.size(); i++)
+	for (size_t i = 0; i < min.size() && i < max.size(); i++)
 	{
 		outfile << min[i] << endl;
 		outfile << max[i] << endl;
