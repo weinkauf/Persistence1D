@@ -268,7 +268,7 @@ public:
 	*/
 	size_t GetGlobalMinimumIndex(const bool matlabIndexing = false) const
 	{
-		if (Components.empty()) return -1;
+		if (Components.empty()) return 0;
 
 		assert(Components.front().Alive);
 		if (matlabIndexing)
@@ -286,7 +286,7 @@ public:
 	*/
 	double GetGlobalMinimumValue() const
 	{
-		if (Components.empty()) return 0;
+		if (Components.empty()) return 0.0;
 
 		assert(Components.front().Alive);
 		return Components.front().MinValue;
@@ -323,8 +323,8 @@ public:
 		   flag = false;
 		}
 
-		if ((globalMinIdx > Data.size()-1) || (globalMinIdx < -1)) flag = false;
-		if (globalMinIdx == -1 && min.size() != 0) flag = false;
+		if ((globalMinIdx > Data.size()-1) || Components.empty()) flag = false;
+		if (Components.empty() && min.size() != 0) flag = false;
 		
 		std::vector<size_t>::iterator minUniqueEnd = std::unique(min.begin(), min.end());
 		std::vector<size_t>::iterator maxUniqueEnd = std::unique(max.begin(), max.end());
