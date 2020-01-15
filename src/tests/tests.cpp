@@ -9,8 +9,8 @@ void SecondCallOnEmptyData()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
-	vector<float> data1, data2; 
+	vector<size_t> min, max;
+	vector<double> data1, data2; 
 
 	data1.push_back(1.0);
 	data1.push_back(2.0);
@@ -23,8 +23,8 @@ void SecondCallOnEmptyData()
 	p.RunPersistence(data2);
 	p.GetExtremaIndices(min, max);
 	p.GetPairedExtrema(pairs);
-	float minVal = p.GetGlobalMinimumValue();
-	int idx = p.GetGlobalMinimumIndex();
+	double minVal = p.GetGlobalMinimumValue();
+	size_t idx = p.GetGlobalMinimumIndex();
 	
 	assert(minVal==0);
 	assert(idx ==-1);
@@ -39,15 +39,15 @@ void MutliCallPersistence()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
-	vector<float> data1, data2; 
+	vector<size_t> min, max;
+	vector<double> data1, data2; 
 
 	data1.push_back(1.0);
 	data1.push_back(2.0);
 	data1.push_back(3.0);
 	data1.push_back(1.0);
 
-	data2 = vector<float>(data1);
+	data2 = vector<double>(data1);
 	data2.push_back(4.0);
 	data2.push_back(10.0);
 	data2.push_back(-5.0);
@@ -81,7 +81,7 @@ void MutliCallPersistence()
 
 	//now check the filters:
 	p.GetExtremaIndices(min, max, 10);
-	p.GetPairedExtrema(pairs, (float)2.1);
+	p.GetPairedExtrema(pairs, 2.1);
 	assert(p.GetGlobalMinimumValue()==-5.0);
 	assert(p.GetGlobalMinimumIndex()==6);
 	assert(min.size()==0);
@@ -96,8 +96,8 @@ void RunOnEmptyData()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
-	vector<float> data; 
+	vector<size_t> min, max;
+	vector<double> data; 
 
 	p.RunPersistence(data);
 
@@ -126,8 +126,8 @@ void CallsBeforeRuns()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
-	vector<float> data; 
+	vector<size_t> min, max;
+	vector<double> data; 
 
 	p.GetExtremaIndices(min, max);
 	assert(min.empty());
@@ -154,16 +154,16 @@ void TestInputSizeOne()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
+	vector<size_t> min, max;
 
-	vector<float> data; 
+	vector<double> data; 
 	data.push_back(10.0);
 
 	p.RunPersistence(data); 
 	p.GetPairedExtrema(pairs);
 	p.GetExtremaIndices(min, max);
-	int minIdx = p.GetGlobalMinimumIndex();
-	float minVal = p.GetGlobalMinimumValue();
+	size_t minIdx = p.GetGlobalMinimumIndex();
+	double minVal = p.GetGlobalMinimumValue();
 
 	assert(pairs.empty() && min.empty() && max.empty());
 	assert(minIdx==0);
@@ -177,17 +177,17 @@ void TestInputSizeTwo()
 {
 	Persistence1D p;
 	vector<TPairedExtrema> pairs;
-	vector<int> min, max;
+	vector<size_t> min, max;
 
-	vector<float> data; 
+	vector<double> data; 
 	data.push_back(10.0);
 	data.push_back(20.0);
 
 	p.RunPersistence(data); 
 	p.GetPairedExtrema(pairs);
 	p.GetExtremaIndices(min, max);
-	int minIdx = p.GetGlobalMinimumIndex();
-	float minVal = p.GetGlobalMinimumValue();
+	size_t minIdx = p.GetGlobalMinimumIndex();
+	double minVal = p.GetGlobalMinimumValue();
 
 	assert(pairs.empty() && min.empty() && max.empty());
 	assert(minIdx!=-1);
@@ -199,16 +199,16 @@ void TestInputSizeTwo()
 }
 void RandomizedTesting()
 {
-	vector<float> data; 
-	int size = rand() % 10000;
+	vector<double> data; 
+	size_t size = rand() % 10000;
 	data.reserve(size);
 
 	Persistence1D p;
 
 	//create data
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{		
-		data.push_back((float)rand());
+		data.push_back((double)rand());
 	}
 
 	p.RunPersistence(data);
@@ -222,7 +222,7 @@ int main()
 	CallsBeforeRuns();
 	MutliCallPersistence();
 	SecondCallOnEmptyData();
-	for (int i = 0; i < 100; i++)
+	for (size_t i = 0; i < 100; i++)
 	{
 		RandomizedTesting();
 	}

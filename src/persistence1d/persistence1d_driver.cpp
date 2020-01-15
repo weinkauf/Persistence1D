@@ -6,7 +6,7 @@
  *
  *  Command line: persistence1d_driver.exe	\<filename\> [threshold] [-MATLAB]
  *			- filename is the path to a data text file.
- *			  Data is assumed to be formatted as a single float-compatible value per row. 
+ *			  Data is assumed to be formatted as a single double-compatible value per row. 
  *			- [Optional] threshold is a floating point value. Acceptable threshold value >= 0
  *			- [Optional] -MATLAB - output indices match Matlab 1-indexing convention.
  *  Output:	- Indices of extrema, written to a text file, one value per row.
@@ -24,6 +24,7 @@
 
 #include <fstream>
 #include <string>
+#include <cstring>
 
 #define MATLAB "-MATLAB"
 
@@ -32,18 +33,18 @@ using namespace p1d;
 
 
 /*!
-	Tries to open the input file and read its contents to a float vector.
+	Tries to open the input file and read its contents to a double vector.
 	
-	Input is assumed to be formatted as one number per line, in float compatible notation.
+	Input is assumed to be formatted as one number per line, in double compatible notation.
 	
 	Ignores any lines which do not conform to this assumption.
 
 	Number of data entries is assumed to be smaller than vector's class maximum size - this is not checked!
 
-	@param[in] filename		Name of input file with float data.
+	@param[in] filename		Name of input file with double data.
 	@param[out] data		Data is written to this vector.
 */
-bool ReadFileToVector (char * filename, vector<float> & data);
+bool ReadFileToVector (char * filename, vector<double> & data);
 /*!
 	Writes indices of extrema features to file, sorted according to their persistence. 
 
@@ -60,7 +61,7 @@ void WriteMinMaxPairsToFile (char * filename, vector<TPairedExtrema> pairs);
 	Parses user command line.
 	Checks if the user set a threshold value or wants MATLAB indexing.
 */
-bool ParseCmdLine(int argc, char* argv[], float &threshold, bool & matlabIndexing);
+bool ParseCmdLine(int argc, char* argv[], double &threshold, bool & matlabIndexing);
 
 /*!
 	Main function - reads a file specified as a command line argument. runs persistence, 
@@ -72,9 +73,9 @@ bool ParseCmdLine(int argc, char* argv[], float &threshold, bool & matlabIndexin
 */
 int main(int argc, char* argv[])
 {
-	vector<float> data;
+	vector<double> data;
 	vector<int> indices; 
-	float threshold;
+	double threshold;
 	vector <TPairedExtrema> pairs;
 	bool matlabIndexing;
 	Persistence1D p;
@@ -115,7 +116,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-bool ReadFileToVector (char * filename, vector<float> & data)
+bool ReadFileToVector (char * filename, vector<double> & data)
 {
 	ifstream datafile;
 	
@@ -129,7 +130,7 @@ bool ReadFileToVector (char * filename, vector<float> & data)
 		return false;
 	}
 
-	float currdata;
+	double currdata;
 
 	while(datafile >> currdata)
 	{
@@ -152,13 +153,12 @@ void WriteMinMaxPairsToFile (char * filename, vector<TPairedExtrema> pairs)
 	
 	for (vector<TPairedExtrema>::iterator p = pairs.begin(); p != pairs.end(); p++)
 	{
-		datafile << to_string((long long)(*p).MinIndex) << endl;
-		datafile << to_string((long long)(*p).MaxIndex) << endl;
+		datafile << to_string((*p).MinIndex) << " " << to_string((*p).MaxIndex) << " " << to_string((*p).Persistence)<< endl;
 	}
 
 	datafile.close();
 }
-bool ParseCmdLine(int argc, char* argv[], float &threshold, bool & matlabIndexing)
+bool ParseCmdLine(int argc, char* argv[], double &threshold, bool & matlabIndexing)
 {	
 	bool noErrors = true;
 		
@@ -186,7 +186,7 @@ bool ParseCmdLine(int argc, char* argv[], float &threshold, bool & matlabIndexin
 		else if ( argv[counter][0] == '0') //different from nullptr
 		{
 			//this doesn't throw exceptions, AKAIK
-			threshold = (float)atof(argv[counter]);
+			threshold = (double)atof(argv[counter]);
 
 			//string begins with 0, 
 			//so it's ok that atof returns 0
@@ -202,7 +202,7 @@ bool ParseCmdLine(int argc, char* argv[], float &threshold, bool & matlabIndexin
 		else
 		{
 			//this doesn't throw exceptions, AKAIK
-			threshold = (float)atof(argv[counter]);
+			threshold = (double)atof(argv[counter]);
 
 			//the string does not include a 0, but atof returns 0. 
 			//string cannot be converted to threshold value

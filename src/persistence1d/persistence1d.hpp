@@ -35,10 +35,10 @@ struct TIdxAndData
 	}
 
 	///The index of the vertex within the Data vector. 
-	int Idx;
+	size_t Idx;
 
 	///Vertex data value from the original Data vector sent as an argument to RunPersistence.
-	float Data;
+	double Data;
 };
 
 
@@ -51,14 +51,14 @@ struct TComponent
 	///A component is defined by the indices of its edges.
 	///Both variables hold the respective indices of the vertices in Data vector.
 	///All vertices between them are considered to belong to this component.
-	int LeftEdgeIndex;
-	int RightEdgeIndex;
+	size_t LeftEdgeIndex;
+	size_t RightEdgeIndex;
 
 	///The index of the local minimum within the component as longs as its alive. 
-	int MinIndex;
+	size_t MinIndex;
 
 	///The value of the Data[MinIndex].
-	float MinValue; //redundant, but makes life easier
+	double MinValue; //redundant, but makes life easier
 
 	///Set to true when a component is created. Once components are merged,
 	///the destroyed component Alive value is set to false. 
@@ -74,15 +74,15 @@ struct TComponent
 struct TPairedExtrema
 {
 	///Index of local minimum, as per Data vector.
-	int MinIndex;
+	size_t MinIndex;
 
 	///Index of local maximum, as per Data vector. 
-	int MaxIndex;
+	size_t MaxIndex;
 
 	///The persistence of the two extrema.
 	///Data[MaxIndex] - Data[MinIndex]		 
 	///Guaranteed to be >= 0.
-	float Persistence;	
+	double Persistence;	
 
 	bool operator<(const TPairedExtrema& other) const
 	{
@@ -125,7 +125,7 @@ public:
 
 		@param[in] InputData Vector of data to find features on, ordered according to its axis.
 	*/
-	bool RunPersistence(const std::vector<float>& InputData)
+	bool RunPersistence(const std::vector<double>& InputData)
 	{	
 		Data = InputData; 
 		Init();
@@ -153,7 +153,7 @@ public:
 	void PrintPairs(const std::vector<TPairedExtrema>& pairs) const 
 	{
 		for (std::vector<TPairedExtrema>::const_iterator it = pairs.begin(); 
-			it != pairs.end(); it++)
+			it != pairs.end(); ++it)
 		{
 			std::cout	<< "Persistence: " << (*it).Persistence
 						<< " minimum index: " << (*it).MinIndex
@@ -169,7 +169,7 @@ public:
 		@param[in] threshold		Threshold value for pair persistence.
 		@param[in] matlabIndexing	Use Matlab indexing for printing.
 	*/	
-	void PrintResults(const float threshold = 0.0, const bool matlabIndexing = false) const
+	void PrintResults(const double threshold = 0.0, const bool matlabIndexing = false) const
 	{
 		if (threshold < 0)
 		{
@@ -203,7 +203,7 @@ public:
 		
 		@param[in] matlabIndexing	Set this to true to change all indices of features to Matlab's 1-indexing.
 	*/
-	bool GetPairedExtrema(std::vector<TPairedExtrema> & pairs, const float threshold = 0, const bool matlabIndexing = false) const
+	bool GetPairedExtrema(std::vector<TPairedExtrema> & pairs, const double threshold = 0, const bool matlabIndexing = false) const
 	{
 		//make sure the user does not use previous results that do not match the data
 		pairs.clear();
@@ -218,7 +218,7 @@ public:
 		
 		if (matlabIndexing) //match matlab indices by adding one
 		{
-			for (std::vector<TPairedExtrema>::iterator p = pairs.begin(); p != pairs.end(); p++)
+			for (std::vector<TPairedExtrema>::iterator p = pairs.begin(); p != pairs.end(); ++p)
 			{
 				(*p).MinIndex += MATLAB_INDEX_FACTOR;
 				(*p).MaxIndex += MATLAB_INDEX_FACTOR;			
@@ -238,7 +238,7 @@ public:
 	@param[in]	threshold		Return only indices for pairs whose persistence is greater than or equal to threshold. 
 	@param[in]	matlabIndexing	Set this to true to change all indices to match Matlab's 1-indexing.
 */
-	bool GetExtremaIndices(std::vector<int> & min, std::vector<int> & max, const float threshold = 0, const bool matlabIndexing = false) const
+	bool GetExtremaIndices(std::vector<size_t> & min, std::vector<size_t> & max, const double threshold = 0, const bool matlabIndexing = false) const
 	{
 		//before doing anything, make sure the user does not use old results
 		min.clear();
@@ -249,12 +249,12 @@ public:
 		min.reserve(PairedExtrema.size());
 		max.reserve(PairedExtrema.size());
 		
-		int matlabIndexFactor = 0;
+		size_t matlabIndexFactor = 0;
 		if (matlabIndexing) matlabIndexFactor = MATLAB_INDEX_FACTOR;
 
 		std::vector<TPairedExtrema>::const_iterator lower_bound = FilterByPersistence(threshold);
 
-		for (std::vector<TPairedExtrema>::const_iterator p = lower_bound; p != PairedExtrema.end(); p++)
+		for (std::vector<TPairedExtrema>::const_iterator p = lower_bound; p != PairedExtrema.end(); ++p)
 		{
 			min.push_back((*p).MinIndex + matlabIndexFactor);
 			max.push_back((*p).MaxIndex + matlabIndexFactor);
@@ -266,9 +266,9 @@ public:
 		The global minimum does not get paired and is not returned 
 		via GetPairedExtrema and GetExtremaIndices.
 	*/
-	int GetGlobalMinimumIndex(const bool matlabIndexing = false) const
+	size_t GetGlobalMinimumIndex(const bool matlabIndexing = false) const
 	{
-		if (Components.empty()) return -1;
+		if (Components.empty()) return 0;
 
 		assert(Components.front().Alive);
 		if (matlabIndexing)
@@ -284,9 +284,9 @@ public:
 		The global minimum does not get paired and is not returned 
 		via GetPairedExtrema and GetExtremaIndices.
 	*/
-	float GetGlobalMinimumValue() const
+	double GetGlobalMinimumValue() const
 	{
-		if (Components.empty()) return 0;
+		if (Components.empty()) return 0.0;
 
 		assert(Components.front().Alive);
 		return Components.front().MinValue;
@@ -304,12 +304,12 @@ public:
 	bool VerifyResults() 
 	{
 		bool flag = true; 
-		std::vector<int> min, max;
-		std::vector<int> combinedIndices;
+		std::vector<size_t> min, max;
+		std::vector<size_t> combinedIndices;
 		
 		GetExtremaIndices(min, max);
 
-		int globalMinIdx = GetGlobalMinimumIndex();
+		size_t globalMinIdx = GetGlobalMinimumIndex();
 				
 		std::sort(min.begin(), min.end());
 		std::sort(max.begin(), max.end());
@@ -323,11 +323,11 @@ public:
 		   flag = false;
 		}
 
-		if ((globalMinIdx > (int)Data.size()-1) || (globalMinIdx < -1)) flag = false;
-		if (globalMinIdx == -1 && min.size() != 0) flag = false;
+		if ((globalMinIdx > Data.size()-1) || Components.empty()) flag = false;
+		if (Components.empty() && min.size() != 0) flag = false;
 		
-		std::vector<int>::iterator minUniqueEnd = std::unique(min.begin(), min.end());
-		std::vector<int>::iterator maxUniqueEnd = std::unique(max.begin(), max.end());
+		std::vector<size_t>::iterator minUniqueEnd = std::unique(min.begin(), min.end());
+		std::vector<size_t>::iterator maxUniqueEnd = std::unique(max.begin(), max.end());
 				
 		if (minUniqueEnd != min.end() ||
 			maxUniqueEnd != max.end() ||
@@ -343,7 +343,7 @@ protected:
 	/*!
 		Contain a copy of the original input data.
 	*/
-	std::vector<float> Data;
+	std::vector<double> Data;
 	
 	
 	/*!
@@ -373,7 +373,7 @@ protected:
 	std::vector<TPairedExtrema> PairedExtrema;
 	
 		
-	unsigned int TotalComponents;	//keeps track of component vector size and newest component "color"
+	size_t TotalComponents;	//keeps track of component vector size and newest component "color"
 	bool AliveComponentsVerified;	//Index of global minimum in Data vector. This minimum is never paired.
 	
 	
@@ -386,9 +386,9 @@ protected:
 
 		@param[in] firstIdx,secondIdx	Indices of components to be merged. Their order does not matter. 
 	*/
-	void MergeComponents(const int firstIdx, const int secondIdx)
+	void MergeComponents(const size_t firstIdx, const size_t secondIdx)
 	{
-		int survivorIdx, destroyedIdx;
+		size_t survivorIdx, destroyedIdx;
 		//survivor - component whose hub is bigger
 		if (Components[firstIdx].MinValue < Components[secondIdx].MinValue)
 		{
@@ -435,7 +435,7 @@ protected:
 
 		@param[in] firstIdx, secondIdx Indices of vertices to be paired. Order does not matter. 
 	*/
-	void CreatePairedExtrema(const int firstIdx, const int secondIdx)
+	void CreatePairedExtrema(const size_t firstIdx, const size_t secondIdx)
 	{
 		TPairedExtrema pair; 
 		
@@ -488,7 +488,7 @@ protected:
 
 	@param[in]	minIdx Index of a local minimum. 
 	*/
-	void CreateComponent(const int minIdx)
+	void CreateComponent(const size_t minIdx)
 	{
 		TComponent comp;
 		comp.Alive = true;
@@ -518,7 +518,7 @@ protected:
 		@param[in]	componentIdx	Index of component (the value of a neighboring vertex in Colors[]).
 		@param[in] 	dataIdx			Index of vertex which the component is extended to.
 	*/
-	void ExtendComponent(const int componentIdx, const int dataIdx)
+	void ExtendComponent(const size_t componentIdx, const size_t dataIdx)
 	{
 #ifdef _DEUBG
 		assert(Components[componentIdx].Alive == true)
@@ -538,7 +538,7 @@ protected:
 		{
 #ifdef _DEUBG
 			std::string errorMessage = "ExtendComponent: index mismatch. Data index: ";
-			errorMessage += std::to_string((long long)dataIdx);
+			errorMessage += std::to_string(dataIdx);
 			throw (errorMessage);
 #endif 
 		}
@@ -563,7 +563,7 @@ protected:
 		Colors.resize(Data.size());
 		std::fill(Colors.begin(), Colors.end(), NO_COLOR);
 		
-		int vectorSize = (int)(Data.size()/RESIZE_FACTOR) + 1; //starting reserved size >= 1 at least
+		size_t vectorSize = (size_t)(Data.size()/RESIZE_FACTOR) + 1; //starting reserved size >= 1 at least
 		
 		Components.clear();
 		Components.reserve(vectorSize);
@@ -584,13 +584,13 @@ protected:
 	{
 		if (Data.size()==0) return;
 				
-		for (std::vector<float>::size_type i = 0; i != Data.size(); i++)
+		for (std::vector<double>::size_type i = 0; i != Data.size(); ++i)
 		{
 			TIdxAndData dataidxpair; 
 
 			//this is going to make problems
 			dataidxpair.Data = Data[i]; 
-			dataidxpair.Idx = (int)i; 
+			dataidxpair.Idx = i; 
 
 			SortedData.push_back(dataidxpair);
 		}
@@ -617,9 +617,9 @@ protected:
 			return;
 		}
 
-		for (std::vector<TIdxAndData>::iterator p = SortedData.begin(); p != SortedData.end(); p++)
+		for (std::vector<TIdxAndData>::iterator p = SortedData.begin(); p != SortedData.end(); ++p)
 		{
-			int i = (*p).Idx;
+			size_t i = (*p).Idx;
 
 			//left most vertex - no left neighbor
 			//two options - either local minimum, or extend component
@@ -664,7 +664,7 @@ protected:
 			}
 			else if (Colors[i-1] != NO_COLOR && Colors[i+1] != NO_COLOR) //local maximum - merge components
 			{
-				int leftComp, rightComp; 
+				size_t leftComp, rightComp; 
 
 				leftComp = Colors[i-1];
 				rightComp = Colors[i+1]; 
@@ -702,7 +702,7 @@ protected:
 		
 		@param[in]	threshold	Minimum persistence of features to be returned.		
 	*/
-	std::vector<TPairedExtrema>::const_iterator FilterByPersistence(const float threshold = 0) const
+	std::vector<TPairedExtrema>::const_iterator FilterByPersistence(const double threshold = 0) const
 	{		
 		if (threshold == 0 || threshold < 0) return PairedExtrema.begin();
 
@@ -733,7 +733,7 @@ protected:
 #endif
 		}
 		
-		for (std::vector<TComponent>::const_iterator it = Components.begin()+1; it != Components.end(); it++)
+		for (std::vector<TComponent>::const_iterator it = Components.begin()+1; it != Components.end(); ++it)
 		{
 			if ((*it).Alive == true) 
 			{
