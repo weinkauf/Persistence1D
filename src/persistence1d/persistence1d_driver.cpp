@@ -25,6 +25,7 @@
 
 #include <fstream>
 #include <string>
+#include <cstring>
 
 #define MATLAB "-MATLAB"
 
