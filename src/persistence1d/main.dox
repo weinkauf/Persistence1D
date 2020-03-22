@@ -7,7 +7,7 @@ persistence.
 
 The code runs in O(n log n) time, where n is the number of input points.
 
-Persistence1D has been written by Yeara Kozlov and <A HREF="http://www.mpi-inf.mpg.de/~weinkauf/">Tino Weinkauf</A>, Max Planck Institute for Informatics, Saarbrücken, Germany. You may use it as you wish, it is in the public domain.
+Persistence1D has been written by Yeara Kozlov and <A HREF="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</A>, Max Planck Institute for Informatics, Saarbrücken, Germany. You may use it as you wish, it is in the public domain.
 
 \image html persistence1d_example_sine.png
 
