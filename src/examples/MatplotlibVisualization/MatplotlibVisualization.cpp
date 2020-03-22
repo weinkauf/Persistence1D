@@ -13,11 +13,6 @@
     -# Get results in Matplotlib output format
     -# Visualize results using Matplotlib scripts.
 
-    # Expected Results 
-    Reference output file: [persistence_base_dir]\\src\\examples\\MatplotlibVisualization\\MatplotlibVisualizationRes.ref
-    with contents:
-    \include MatplotlibVisualizationRes.ref
-
     # Results Visualization
     -# Run visualize.py
 

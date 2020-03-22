@@ -16,5 +16,5 @@ ax.plot(features, data[features], marker='.', **marker_style)
 ax.set(xlabel='data index', ylabel='data value')
 ax.grid()
 
-fig.savefig("visualization.png")
+fig.savefig("MatplotlibVisRes.png")
 plt.show()

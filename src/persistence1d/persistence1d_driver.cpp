@@ -54,7 +54,8 @@ bool ReadFileToVector(char* filename, vector<float>& data);
 	Overwrites any existing file with the same name.
 
 	@param[in] filename		Name of output file.
-	@param[out] pairs		Data to write.
+	@param[in] pairs		Pairs of extrema to write.
+	@param[in] idxGlobalMin		Index of the global minimum.
 	
 */
 void WriteExtremaToFile(char* filename, vector<TPairedExtrema> pairs, const int idxGlobalMin);
