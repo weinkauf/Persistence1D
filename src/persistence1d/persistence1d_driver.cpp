@@ -10,11 +10,12 @@
  *			- [Optional] threshold is a floating point value. Acceptable threshold value >= 0
  *			- [Optional] -MATLAB - output indices match Matlab 1-indexing convention.
  *  Output:	- Indices of extrema, written to a text file, one value per row.
-			  Indices of paired extrema are written in following rows. 
+			  Indices of paired extrema are written in consecutive rows. 
  *			  Indices are ordered according to their persistence, from most to least persistence. 
  *			  Even rows contain indices of minima.
  *			  Odd rows contain indices of maxima.
- *			  Global minimum is not paired and is not written to file.
+ *			  The global minimum is written in the last line. It is not paired with a maximum.
+ *			  Hence, we have an odd number of lines in the output.
  *			  Output filename: \<filename\>_res.txt
  *
  */
@@ -43,7 +44,7 @@ using namespace p1d;
 	@param[in] filename		Name of input file with float data.
 	@param[out] data		Data is written to this vector.
 */
-bool ReadFileToVector (char * filename, vector<float> & data);
+bool ReadFileToVector(char* filename, vector<float>& data);
 /*!
 	Writes indices of extrema features to file, sorted according to their persistence. 
 
@@ -55,7 +56,7 @@ bool ReadFileToVector (char * filename, vector<float> & data);
 	@param[out] pairs		Data to write.
 	
 */
-void WriteMinMaxPairsToFile (char * filename, vector<TPairedExtrema> pairs);
+void WriteExtremaToFile(char* filename, vector<TPairedExtrema> pairs, const int idxGlobalMin);
 /*!
 	Parses user command line.
 	Checks if the user set a threshold value or wants MATLAB indexing.
@@ -108,7 +109,8 @@ int main(int argc, char* argv[])
 	
 	p.RunPersistence(data);
 	p.GetPairedExtrema(pairs, threshold , matlabIndexing);
-	WriteMinMaxPairsToFile(outfilename, pairs);
+	const int idxGlobalMin = p.GetGlobalMinimumIndex(matlabIndexing);
+	WriteExtremaToFile(outfilename, pairs, idxGlobalMin);
 
 	delete outfilename;
 		
@@ -139,7 +141,7 @@ bool ReadFileToVector (char * filename, vector<float> & data)
 	datafile.close();
 	return true;
 }
-void WriteMinMaxPairsToFile (char * filename, vector<TPairedExtrema> pairs)
+void WriteExtremaToFile(char* filename, vector<TPairedExtrema> pairs, const int idxGlobalMin)
 {
 	ofstream datafile; 
 	datafile.open(filename);
@@ -155,6 +157,8 @@ void WriteMinMaxPairsToFile (char * filename, vector<TPairedExtrema> pairs)
 		datafile << to_string((long long)(*p).MinIndex) << endl;
 		datafile << to_string((long long)(*p).MaxIndex) << endl;
 	}
+
+	datafile << to_string((long long)idxGlobalMin) << endl;
 
 	datafile.close();
 }
