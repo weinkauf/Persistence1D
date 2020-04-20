@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [] = turn_on_mosek()
-	addpath 'c:\Program Files\mosek\7\toolbox\r2009b';
+	% addpath 'c:\Program Files\mosek\7\toolbox\r2009b';
 	% addpath 'c:\Program Files\mosek\7\toolbox\r2012a'; 
 	% addpath 'c:\Program Files\mosek\7\toolbox\r2013a';
 end

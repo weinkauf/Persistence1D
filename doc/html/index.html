@@ -70,16 +70,17 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>Persistence1D is a class for finding local extrema and their persistence in one-dimensional data.Local minima and local maxima are extracted, paired, and sorted according to their persistence.</p>
 <p>The code runs in O(n log n) time, where n is the number of input points.</p>
-<p>Persistence1D has been written by Yeara Kozlov and <a href="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</a>, Max Planck Institute for Informatics, Saarbrücken, Germany. You may use it as you wish, it is in the public domain.</p>
+<p>Persistence1D and Reconstruct1D have been written by Yeara Kozlov and <a href="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</a>, Max Planck Institute for Informatics, Saarbrücken, Germany. A newer Python version has been written by <a href="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</a>, KTH Royal Institute of Technology, Stockholm, Sweden. You may use it as you wish, it is in the public domain.</p>
 <div class="image">
 <img src="persistence1d_example_sine.png" alt="persistence1d_example_sine.png"/>
 </div>
 <h2>Getting Started</h2>
 <p>The code can be used in a C++ project by just including a header file, or from within Matlab via mex.</p>
+<p>A functionally similar version can be used from Python. Please find the Python documentation in the python/doc subfolder. Most of this documentation refers to C++ and Matlab only.</p>
 <p>Check out the <a href="examples.html">C++ examples and Matlab examples</a>. There is also a little command line program <a class="el" href="persistence1d__driver_8cpp.html" title="Use this program to run Persistence1D on data in text files.">persistence1d_driver.cpp</a> to quickly process text files with data.</p>
 <p>All relevant code (apart from examples and such) is found in a single header file (<a class="el" href="persistence1d_8hpp.html" title="Actual code.">persistence1d.hpp</a>) for simple inclusion in other projects. The only dependency is the C++ standard library. Everything is encapsulated into the namespace <a class="el" href="namespacep1d.html">p1d</a>. The main class is <a class="el" href="classp1d_1_1_persistence1_d.html" title="Finds extrema and their persistence in one-dimensional data.">p1d::Persistence1D</a>.</p>
-<p>A <a class="el" href="_matlab_interface.html">detailed documentation of the Matlab interface</a> is available.</p>
 <p>For the sake of simplicity, only float data is supported, but supporting other data types should be straight-forward.</p>
+<p>A <a class="el" href="_matlab_interface.html">detailed documentation of the Matlab interface</a> is available.</p>
 <h2>Input</h2>
 <ul>
 <li>One-dimensional vector of float values. It is assumed that this represents the function values of a one-dimensional function.</li>
@@ -134,7 +135,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 25 2020 19:03:25 for Persistence 1D inc. Reconstruct1D by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 20 2020 12:40:37 for Persistence 1D inc. Reconstruct1D by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

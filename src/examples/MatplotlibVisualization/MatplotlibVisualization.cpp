@@ -10,7 +10,6 @@
     -# Read data from a file, 
     -# Use Persistence1D class to extract extrema
     -# Filter results according to persistence values.
-    -# Get results in Matplotlib output format
     -# Visualize results using Matplotlib scripts.
 
     # Results Visualization
@@ -73,9 +72,6 @@ int main()
 	float filterThreshold = 1.0;
 	
 	//Retrieve the filtered results from the class. 
-	//Since results are intended to be used within Matplotlib, set MatplotlibIndexing in all Get function calls
-	//to get 1-based indexing results. 
-	//Results retrieved without MatplotlibIndexing set to true are 0-based.
 	p.GetExtremaIndices(min, max, filterThreshold);
 	globalMinIndex = p.GetGlobalMinimumIndex();
 	
@@ -97,9 +93,7 @@ int main()
 	outfile.close();
 
 	//To visualize the results:
-	//Start Matplotlib
-	//Change the directory to [persistence_base_dir]\matlab
-	//Run: visualize_features('..\src\examples\MatplotlibVisualization\data.txt', '..\src\examples\MatplotlibVisualization\res.txt')
+	//Run visualize.py via Python, which can be found in the same folder as this file
 	
 	return 0;
 }

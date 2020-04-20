@@ -8,8 +8,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [] = setup_persistence1d()
-    addpath('..\matlab');
 	addpath('.');
+    addpath('..\matlab');
     if (exist('run_persistence1d')~=3)
         cd '..\matlab'
         mex run_persistence1d.cpp

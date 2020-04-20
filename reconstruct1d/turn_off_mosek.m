@@ -8,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [] = turn_off_mosek()
-	rmpath 'c:\Program Files\mosek\7\toolbox\r2009b';
+	% rmpath 'c:\Program Files\mosek\7\toolbox\r2009b';
 	% rmpath 'c:\Program Files\mosek\7\toolbox\r2012a'; 
 	% rmpath 'c:\Program Files\mosek\7\toolbox\r2013a';
 end

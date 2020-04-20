@@ -7,7 +7,9 @@ persistence.
 
 The code runs in O(n log n) time, where n is the number of input points.
 
-Persistence1D has been written by Yeara Kozlov and <A HREF="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</A>, Max Planck Institute for Informatics, Saarbrücken, Germany. You may use it as you wish, it is in the public domain.
+Persistence1D and Reconstruct1D have been written by Yeara Kozlov and <A HREF="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</A>, Max Planck Institute for Informatics, Saarbrücken, Germany.
+A newer Python version has been written by <A HREF="http://www.csc.kth.se/~weinkauf/">Tino Weinkauf</A>, KTH Royal Institute of Technology, Stockholm, Sweden.
+You may use it as you wish, it is in the public domain.
 
 \image html persistence1d_example_sine.png
 
@@ -16,6 +18,10 @@ Persistence1D has been written by Yeara Kozlov and <A HREF="http://www.csc.kth.s
 ##Getting Started
 The code can be used in a C++ project by just including a header file,
 or from within Matlab via mex.
+
+A functionally similar version can be used from Python.
+Please find the Python documentation in the python/doc subfolder.
+Most of this documentation refers to C++ and Matlab only.
 
 Check out the <A HREF="examples.html">C++ examples and Matlab examples</A>.
 There is also a little command line program persistence1d_driver.cpp to quickly process text files with data.
@@ -27,10 +33,11 @@ The only dependency is the C++ standard library.
 Everything is encapsulated into the namespace p1d.
 The main class is p1d::Persistence1D.
 
-A \link MatlabInterface detailed documentation of the Matlab interface\endlink is available.
-
 For the sake of simplicity, only float data is supported,
 but supporting other data types should be straight-forward.
+
+A \link MatlabInterface detailed documentation of the Matlab interface\endlink is available.
+
 
 
 

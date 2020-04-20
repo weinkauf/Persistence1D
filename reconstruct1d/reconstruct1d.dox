@@ -1,6 +1,6 @@
 /*!\page Reconstruct1d_Main Reconstruct1D for Persistence1D
 
-Reconsturct1D is a class for reconstructing smooth functions based on 
+Reconstruct1D is a class for reconstructing smooth functions based on 
 persistence features in one dimensional data. Persistent features can be used to 
 reconstruct a C1 or C2 smooth function which is similar to the original data. 
 

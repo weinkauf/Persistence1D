@@ -5,9 +5,11 @@
 %
 % This file shows how to use Persistence1D results to call Reconstruct1D 
 % with different parameters.
+%
+% Run this from the parent folder.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%clear all;
+% clear all;
 close all;
 
 % Add Reconstruct1D folder to Matlab's path
@@ -20,8 +22,7 @@ setup_persistence1d();
 turn_on_mosek();
 
 % Read the data set
-load('..\datasets\data_weights_set.mat');
-data = sample_data;
+load 'test_data1.mat';
 
 % Convert input data to single precision to work with Persistence1D
 single_precision_data = single(data);

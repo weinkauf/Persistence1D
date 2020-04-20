@@ -5,6 +5,8 @@
 % results of Reconstruct1D. 
 % For data weight = 1.0 results will be almost exactly the  data vector.
 % Data term weights of around 10^-6 reconstruct smoother functions.
+%
+% Run this from the parent folder.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -17,8 +19,8 @@ setup_persistence1d();
 turn_on_mosek();
 
 % Load example data
-load '..\datasets\data_weights_set.mat';
-data = sample_data;
+load 'test_data1.mat';
+%data = data;
 single_precision_data = single(data);
 smoothness = 'biharmonic';
 threshold = 0.2;

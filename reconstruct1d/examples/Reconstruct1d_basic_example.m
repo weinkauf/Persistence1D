@@ -2,6 +2,8 @@
 % RECONSTRUCT1D_BASIC_EXAMPLE
 %
 % Basic example for Reconstruct1D usage.
+%
+% Run this from the parent folder.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Add Reconstruct1D folder to Matlab's path
@@ -12,7 +14,7 @@ setup_persistence1d();
 turn_on_mosek();
 
 % Load the data set
-load '..\datasets\test_data.mat';
+load 'test_data2.mat';
 
 % Choose smoothness for the reconstructed function. 
 % 'biharmonic' smoothness guarantees that the reconstructed function is C1 smooth

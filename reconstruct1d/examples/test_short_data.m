@@ -5,6 +5,8 @@
 %
 % This file shows how to use Persistence1D results to call Reconstruct1D 
 % with different parameters.
+%
+% Run this from the parent folder.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % clear all;
@@ -20,7 +22,8 @@ setup_persistence1d();
 turn_on_mosek();
 
 % Read the data set
-data = [ 0 1 -1 0 1 0 0 ];
+data = [ 0 0.1 .2 .3 .4 .5 .6 .7 .8 .9 1 .9 .8 .7 .6 .5 .4 .3 .2 .1 0 -.1 -.2 -.3 -.4 -.5 -.6 -.7 -.8 -.9 -1 -.9 -.8 -.7 -.6 -.5 -.4 -.3 -.2 -.1 0 0.1 .2 .3 .4 .5 .6 .7 .8 .9 1 .9 .8 .7 .6 .5 .4 .3 .2 .1 0 -.1 -.2 -.3 -.4 -.5 -.6 -.7 -.8 -.9 -1 -.9 -.8 -.7 -.6 -.5 -.4 -.3 -.2 -.1 ];
+%data = [ 2.0 5.0 7.0 -12.0 -13.0 -7.0 10.0 18.0 6.0 8.0 7.0 4.0 ];
 
 % Convert input data to single precision to work with Persistence1D
 single_precision_data = single(data);
@@ -39,7 +42,7 @@ mins = get_min_indices(pairs);
 maxs = get_max_indices(pairs);
 
 % Set the data weight. Choosing 0.0 constructs smoother function
-data_weight = 0;
+data_weight = 0.01;
 
 % Set the smoothness for the results. 
 bi_smoothness = 'biharmonic';
