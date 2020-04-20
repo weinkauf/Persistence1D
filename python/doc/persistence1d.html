@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module persistence1d</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>persistence1d</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5Cprojekte%5Cresearch%5Cpersistence1d%5Cpython%5Cpersistence1d.py">d:\projekte\research\persistence1d\python\persistence1d.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-RunPersistence"><strong>RunPersistence</strong></a>(InputData)</dt><dd><tt>Finds&nbsp;extrema&nbsp;and&nbsp;their&nbsp;persistence&nbsp;in&nbsp;one-dimensional&nbsp;data.<br>
+&nbsp;<br>
+Local&nbsp;minima&nbsp;and&nbsp;local&nbsp;maxima&nbsp;are&nbsp;extracted,&nbsp;paired,<br>
+and&nbsp;returned&nbsp;together&nbsp;with&nbsp;their&nbsp;persistence.<br>
+The&nbsp;global&nbsp;minimum&nbsp;is&nbsp;extracted&nbsp;as&nbsp;well.<br>
+&nbsp;<br>
+We&nbsp;assume&nbsp;a&nbsp;connected&nbsp;one-dimensional&nbsp;domain.<br>
+Think&nbsp;of&nbsp;"data&nbsp;on&nbsp;a&nbsp;line",&nbsp;or&nbsp;a&nbsp;function&nbsp;f(x)&nbsp;over&nbsp;some&nbsp;domain&nbsp;xmin&nbsp;&lt;=&nbsp;x&nbsp;&lt;=&nbsp;xmax.<br>
+We&nbsp;are&nbsp;only&nbsp;concerned&nbsp;with&nbsp;the&nbsp;data&nbsp;values&nbsp;f(x)<br>
+and&nbsp;do&nbsp;not&nbsp;care&nbsp;to&nbsp;know&nbsp;the&nbsp;x&nbsp;positions&nbsp;of&nbsp;these&nbsp;values,<br>
+since&nbsp;this&nbsp;would&nbsp;not&nbsp;change&nbsp;which&nbsp;point&nbsp;is&nbsp;a&nbsp;minimum&nbsp;or&nbsp;maximum.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;extrema&nbsp;together&nbsp;with&nbsp;their&nbsp;persistence.<br>
+The&nbsp;list&nbsp;is&nbsp;NOT&nbsp;sorted,&nbsp;but&nbsp;the&nbsp;paired&nbsp;extrema&nbsp;can&nbsp;be&nbsp;identified,&nbsp;i.e.,<br>
+which&nbsp;minimum&nbsp;and&nbsp;maximum&nbsp;were&nbsp;removed&nbsp;together&nbsp;at&nbsp;a&nbsp;particular<br>
+persistence&nbsp;level.&nbsp;As&nbsp;follows:<br>
+The&nbsp;odd&nbsp;entries&nbsp;are&nbsp;minima,&nbsp;the&nbsp;even&nbsp;entries&nbsp;are&nbsp;maxima.<br>
+The&nbsp;minimum&nbsp;at&nbsp;2*i&nbsp;is&nbsp;paired&nbsp;with&nbsp;the&nbsp;maximum&nbsp;at&nbsp;2*i+1.<br>
+The&nbsp;last&nbsp;entry&nbsp;of&nbsp;the&nbsp;list&nbsp;is&nbsp;the&nbsp;global&nbsp;minimum.<br>
+It&nbsp;is&nbsp;not&nbsp;paired&nbsp;with&nbsp;a&nbsp;maximum.<br>
+Hence,&nbsp;the&nbsp;list&nbsp;has&nbsp;an&nbsp;odd&nbsp;number&nbsp;of&nbsp;entries.<br>
+&nbsp;<br>
+Author:&nbsp;Tino&nbsp;Weinkauf</tt></dd></dl>
+</td></tr></table>
+</body></html>

@@ -3,7 +3,8 @@ import numpy as np
 
 
 def RunPersistence(InputData):
-    """Finds extrema and their persistence in one-dimensional data.
+    """
+    Finds extrema and their persistence in one-dimensional data.
     
     Local minima and local maxima are extracted, paired,
     and returned together with their persistence.
@@ -16,7 +17,7 @@ def RunPersistence(InputData):
     since this would not change which point is a minimum or maximum.
     
     This function returns a list of extrema together with their persistence.
-    The list if NOT sorted, but the paired extrema can be identified, i.e.,
+    The list is NOT sorted, but the paired extrema can be identified, i.e.,
     which minimum and maximum were removed together at a particular
     persistence level. As follows:
     The odd entries are minima, the even entries are maxima.

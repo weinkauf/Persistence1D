@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module reconstruct1d</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>reconstruct1d</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5Cprojekte%5Cresearch%5Cpersistence1d%5Cpython%5Creconstruct1d.py">d:\projekte\research\persistence1d\python\reconstruct1d.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-RunReconstruction"><strong>RunReconstruction</strong></a>(InputData, AllExtremaIndices, strSmoothness, DataWeight, Solver='quadprog')</dt><dd><tt>This&nbsp;function&nbsp;reconstructs&nbsp;a&nbsp;smooth&nbsp;function&nbsp;approximating&nbsp;the&nbsp;input&nbsp;data,<br>
+but&nbsp;only&nbsp;containing&nbsp;the&nbsp;given&nbsp;minima/maxima.<br>
+Adherence&nbsp;to&nbsp;the&nbsp;original&nbsp;data&nbsp;is&nbsp;controlled&nbsp;using&nbsp;the&nbsp;DataWeight&nbsp;term.&nbsp;<br>
+&nbsp;<br>
+The&nbsp;reconstructed&nbsp;function&nbsp;can&nbsp;be&nbsp;C1&nbsp;or&nbsp;C2&nbsp;smooth.<br>
+This&nbsp;is&nbsp;controlled&nbsp;by&nbsp;the&nbsp;smoothness&nbsp;parameter,<br>
+which&nbsp;can&nbsp;be&nbsp;set&nbsp;to&nbsp;'biharmonic'&nbsp;or&nbsp;'triharmonic'&nbsp;accordingly.<br>
+&nbsp;<br>
+All&nbsp;extrema&nbsp;given&nbsp;to&nbsp;the&nbsp;function&nbsp;are&nbsp;used&nbsp;for&nbsp;reconstruction.<br>
+Undesired&nbsp;extrema&nbsp;need&nbsp;to&nbsp;be&nbsp;filtered&nbsp;before&nbsp;using&nbsp;this&nbsp;function.<br>
+This&nbsp;can&nbsp;be&nbsp;done&nbsp;using&nbsp;Persistence1D.<br>
+&nbsp;<br>
+This&nbsp;code&nbsp;just&nbsp;gets&nbsp;a&nbsp;list&nbsp;of&nbsp;indices&nbsp;representing&nbsp;the&nbsp;locations&nbsp;of&nbsp;extrema&nbsp;in&nbsp;the&nbsp;data.<br>
+One&nbsp;may&nbsp;ask&nbsp;whether&nbsp;this&nbsp;is&nbsp;enough&nbsp;to&nbsp;determine&nbsp;their&nbsp;type&nbsp;and&nbsp;so&nbsp;on,<br>
+since&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;extrema&nbsp;is&nbsp;important&nbsp;for&nbsp;building&nbsp;the&nbsp;inequality&nbsp;constraints<br>
+(which&nbsp;values&nbsp;should&nbsp;be&nbsp;larger&nbsp;than&nbsp;others&nbsp;etc.).<br>
+The&nbsp;type&nbsp;of&nbsp;an&nbsp;extremum&nbsp;is&nbsp;inferable&nbsp;from&nbsp;a&nbsp;correct&nbsp;list&nbsp;of&nbsp;extrema:<br>
+(1)&nbsp;The&nbsp;leftmost&nbsp;and&nbsp;rightmost&nbsp;extrema&nbsp;are&nbsp;always&nbsp;minima.<br>
+(2)&nbsp;Minima&nbsp;and&nbsp;maxima&nbsp;alternate&nbsp;in&nbsp;the&nbsp;sequence&nbsp;(ordered&nbsp;from&nbsp;lowest&nbsp;to&nbsp;highest&nbsp;index).<br>
+(3)&nbsp;Hence,&nbsp;we&nbsp;have&nbsp;an&nbsp;odd&nbsp;number&nbsp;of&nbsp;extrema.<br>
+These&nbsp;statements&nbsp;are&nbsp;true&nbsp;for&nbsp;all&nbsp;1D&nbsp;functions.<br>
+We&nbsp;test&nbsp;for&nbsp;this&nbsp;here,&nbsp;to&nbsp;make&nbsp;sure&nbsp;the&nbsp;right&nbsp;input&nbsp;comes&nbsp;in.<br>
+However,&nbsp;make&nbsp;sure&nbsp;you&nbsp;get&nbsp;your&nbsp;extrema&nbsp;indices&nbsp;from&nbsp;Persistence1D&nbsp;and&nbsp;you&nbsp;handle&nbsp;them&nbsp;correctly.<br>
+&nbsp;<br>
+@param[in]&nbsp;InputData<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;data&nbsp;vector.<br>
+@param[in]&nbsp;AllExtremaIndices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Indices&nbsp;of&nbsp;(filtered)&nbsp;minima/maxima&nbsp;selected&nbsp;for&nbsp;reconstruction.&nbsp;<br>
+@param[in]&nbsp;strSmoothness<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Determines&nbsp;smoothness&nbsp;of&nbsp;result.&nbsp;Valid&nbsp;values&nbsp;are&nbsp;'biharmonic'&nbsp;or&nbsp;'triharmonic'<br>
+@param[in]&nbsp;DataWeight<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Weight&nbsp;for&nbsp;data&nbsp;term.&nbsp;Affects&nbsp;how&nbsp;closely&nbsp;the&nbsp;reconstructed&nbsp;results&nbsp;adhere&nbsp;to&nbsp;the&nbsp;data.&nbsp;Valid&nbsp;range:&nbsp;0.0-1.0<br>
+@param[in]&nbsp;Solver<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Software&nbsp;for&nbsp;solving&nbsp;the&nbsp;Quadratic&nbsp;Programming&nbsp;problem.&nbsp;Possible&nbsp;values&nbsp;are&nbsp;'cvxpy',&nbsp;'ecos',&nbsp;'quadprog',&nbsp;and&nbsp;others&nbsp;supported&nbsp;by&nbsp;the&nbsp;qpsolvers&nbsp;project:&nbsp;https://github.com/stephane-caron/qpsolvers<br>
+&nbsp;<br>
+@param[out]&nbsp;Solution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Reconstructed&nbsp;data.<br>
+&nbsp;<br>
+The&nbsp;Matlab&nbsp;version&nbsp;of&nbsp;this&nbsp;code&nbsp;uses&nbsp;a&nbsp;different&nbsp;notation.&nbsp;Since&nbsp;it&nbsp;came&nbsp;first,<br>
+we&nbsp;provide&nbsp;a&nbsp;translation&nbsp;here&nbsp;(Python&nbsp;code&nbsp;notation&nbsp;on&nbsp;the&nbsp;left&nbsp;side,&nbsp;Matlab&nbsp;on&nbsp;the&nbsp;right):<br>
+Energy:<br>
+P&nbsp;==&nbsp;operator<br>
+q&nbsp;==&nbsp;f<br>
+Inequalities:<br>
+G&nbsp;==&nbsp;A<br>
+h&nbsp;==&nbsp;b<br>
+Equalities:<br>
+A&nbsp;==&nbsp;Aeq<br>
+b&nbsp;==&nbsp;beq&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Author:&nbsp;Tino&nbsp;Weinkauf,&nbsp;based&nbsp;on&nbsp;code&nbsp;from&nbsp;Yeara&nbsp;Kozlov&nbsp;and&nbsp;Alec&nbsp;Jacobson</tt></dd></dl>
+</td></tr></table>
+</body></html>

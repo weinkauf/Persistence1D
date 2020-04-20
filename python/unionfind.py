@@ -1,5 +1,6 @@
 class UnionFind:
-    """Implements the Union-Find data structure.
+    """
+    Implements the Union-Find data structure.
     
     It keeps track of elements
     partitioned into a number of disjoint (non-overlapping) sets.
@@ -16,7 +17,6 @@ class UnionFind:
     
     def __init__(self, NumElements):
         """Initializes the domain with @NumElements elements living in zero sets."""
-        #~ self.Domain = np.full(NumElements, UnionFind.NOSET, np.int64)
         self.Domain = [int(UnionFind.NOSET)] * NumElements
         self.NumSets = 0
 
@@ -33,8 +33,7 @@ class UnionFind:
     
     def MakeSet(self, idxElement):
         """Creates a new set with the given @idxElement as a root."""
-        if (self.Domain[idxElement] != UnionFind.NOSET):
-            raise ValueError("You cannot call MakeSet() on an existing set.")
+        self._assert(self.Domain[idxElement] == UnionFind.NOSET, "You cannot call MakeSet() on an existing set.")
             
         self.Domain[idxElement] = idxElement
         self.NumSets += 1

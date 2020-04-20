@@ -29,3 +29,5 @@ _ReSharper*/
 
 #output folder
 output
+
+python/__pycache__
