@@ -22,7 +22,7 @@ The package supports Python and Matlab.
 Project homepage: http://www.csc.kth.se/~weinkauf/notes/reconstruct1d.html
 
 
-The C++ and Matlab versions of Persistence1D/Reconstruct1D have been written by Yeara Kozlov and [Tino Weinkauf](http://www.csc.kth.se/~weinkauf/contact/), Max Planck Institute for Informatics, Saarbrücken, Germany. The Python version has been written by [Tino Weinkauf](http://www.csc.kth.se/~weinkauf/contact/), KTH Royal Institute of Technology, Stockholm, Sweden.
+The C++ and Matlab versions of Persistence1D/Reconstruct1D have been written by [Yeara Kozlov](https://yearakozlov.com) and [Tino Weinkauf](http://www.csc.kth.se/~weinkauf/contact/), Max Planck Institute for Informatics, Saarbrücken, Germany. The Python version has been written by [Tino Weinkauf](http://www.csc.kth.se/~weinkauf/contact/), KTH Royal Institute of Technology, Stockholm, Sweden.
 
 You may use it as you wish, it is in the public domain. If you find it useful, 
 it would be nice to hear from you. Just drop us a line.

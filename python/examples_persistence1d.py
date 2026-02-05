@@ -10,6 +10,7 @@ The file exemplifies different use cases for Persistence1D:
 * Generating data in memory
 * Running Persistence1D to obtain minima/maxima and their persistence
 * Filtering minima/maxima by their persistence
+* Sorting minima/maxima by their persistence
 * Printing the (filtered) list of minima/maxima
 * Visualizing the (filtered) list of minima/maxima together with the input data
 """
