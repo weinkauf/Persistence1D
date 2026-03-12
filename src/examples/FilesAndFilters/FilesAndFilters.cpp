@@ -21,7 +21,7 @@
     # Code Documentation
 */
 
-#include "..\..\persistence1d\persistence1d.hpp"
+#include "persistence1d.hpp"
 
 #include <fstream>
 
@@ -35,7 +35,7 @@ int main()
 	vector<float> data;
 	float currdata; 
 	ifstream datafile;
-	char * filename = "data.txt";
+	const char * filename = "data.txt";
 	
 	//Declare variables for results
 	vector<TPairedExtrema> pairs;	

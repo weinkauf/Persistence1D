@@ -1,4 +1,4 @@
-#include "..\persistence1d\persistence1d.hpp"
+#include "persistence1d.hpp"
 #include <assert.h>
 #include <stdlib.h>
 

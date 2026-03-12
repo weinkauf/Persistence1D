@@ -30,7 +30,7 @@
     # Code Documentation
 */
 
-#include "..\..\persistence1d\persistence1d.hpp"
+#include "persistence1d.hpp"
 #include <fstream>
 
 using namespace std;
@@ -44,8 +44,8 @@ int main()
 	float currdata; 
 	ifstream datafile;
 	ofstream outfile;
-	char * filename = "data.txt";
-	char * outfilename = "res.txt";
+	const char * filename = "data.txt";
+	const char * outfilename = "res.txt";
 	bool enableMatlabIndexing = true;
 
 	//Output variables declaration
